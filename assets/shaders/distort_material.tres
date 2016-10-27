@@ -1,0 +1,16 @@
+[gd_resource type="CanvasItemMaterial" load_steps=2 format=1]
+
+[sub_resource type="CanvasItemShader" id=1]
+
+_code = { "fragment":"uniform float speed;\nuniform float intensity;\nuniform float strength;\nuniform color color_mod;\nuniform float color_strength;\n\nvec2 coord = UV;\n//coord.y = -1.0 - coord.y;\ncoord.x += sin(coord.y * intensity + (TIME * speed)) / strength;\ncoord.y += cos(coord.x * intensity + (TIME * speed)) / strength;\n\ncolor fin = tex(TEXTURE, coord);\n\nCOLOR = fin * (color_mod * color_strength);", "fragment_ofs":0, "light":"", "light_ofs":0, "vertex":"", "vertex_ofs":0 }
+
+[resource]
+
+shader/shader = SubResource( 1 )
+shader/shading_mode = 0
+shader_param/speed = 0.4
+shader_param/intensity = 5.0
+shader_param/strength = 100.0
+shader_param/color_mod = Color( 0.496094, 0.496094, 0.496094, 1 )
+shader_param/color_strength = 1.0
+

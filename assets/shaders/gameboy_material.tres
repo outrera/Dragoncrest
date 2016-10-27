@@ -1,0 +1,15 @@
+[gd_resource type="CanvasItemMaterial" load_steps=2 format=1]
+
+[sub_resource type="CanvasItemShader" id=1]
+
+_code = { "fragment":"uniform color color1; // 323c39\nuniform color color2; // 4b692f\nuniform color color3; // 6abe30\nuniform color color4; // fbf236\n//uniform float speed;\n//uniform float intensity;\n//uniform float strength;\n\nvec2 coord = SCREEN_UV;\n\n//distort\n//coord.x += sin(coord.y * intensity + (TIME * speed)) * strength;\n//coord.y += cos(coord.x * intensity + (TIME * speed)) * strength;\n\ncolor screen = color(texscreen(coord).rgb, 1.0);\nfloat ave = (screen.r + screen.g + screen.b)/3.0;\n\nvec4 fin;\n\nif(ave <  0.25 ) { fin = color1; }\nif(ave >= 0.25 ) { fin = color2; }\nif(ave >= 0.50 ) { fin = color3; }\nif(ave >= 0.75 ) { fin = color4; }\n\nCOLOR = fin;", "fragment_ofs":0, "light":"", "light_ofs":0, "vertex":"", "vertex_ofs":0 }
+
+[resource]
+
+shader/shader = SubResource( 1 )
+shader/shading_mode = 0
+shader_param/color1 = Color( 0.2, 0.360784, 0.286275, 1 )
+shader_param/color2 = Color( 0.403922, 0.54902, 0.25098, 1 )
+shader_param/color3 = Color( 0.741176, 0.745098, 0.211765, 1 )
+shader_param/color4 = Color( 0.898039, 0.866667, 0.564706, 1 )
+

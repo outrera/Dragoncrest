@@ -1,0 +1,147 @@
+[gd_scene load_steps=10 format=1]
+
+[ext_resource path="res://scenes/objects/player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/img/gradient_fade_full.png" type="Texture" id=2]
+[ext_resource path="res://scenes/objects/gui.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/objects/background/tester2_bg.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/objects/camera.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/tiles/brick_tileset.tres" type="TileSet" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 8, 16 )
+
+[sub_resource type="CanvasItemShader" id=2]
+
+_code = { "fragment":"uniform float speed;\nuniform float intensity;\nuniform float strength;\nuniform color color_mod;\nuniform float color_strength;\n\nvec2 coord = UV;\n//coord.y = -1.0 - coord.y;\ncoord.x += sin(coord.y * intensity + (TIME * speed)) / strength;\ncoord.y += cos(coord.x * intensity + (TIME * speed)) / strength;\n\ncolor fin = tex(TEXTURE, coord);\n\nCOLOR = fin * (color_mod * color_strength);", "fragment_ofs":0, "light":"", "light_ofs":0, "vertex":"", "vertex_ofs":0 }
+
+[sub_resource type="CanvasItemMaterial" id=3]
+
+shader/shader = SubResource( 2 )
+shader/shading_mode = 0
+shader_param/speed = 1.0
+shader_param/intensity = -2.0
+shader_param/strength = 50.0
+shader_param/color_mod = Color( 1, 1, 1, 1 )
+shader_param/color_strength = 1.0
+
+[node name="world" type="Node"]
+
+[node name="player" parent="." instance=ExtResource( 1 )]
+
+[node name="props" type="Node" parent="."]
+
+[node name="black_mask" type="Node" parent="props"]
+
+editor/display_folded = true
+
+[node name="Polygon2D" type="Polygon2D" parent="props/black_mask"]
+
+polygon = Vector2Array( -408, -32, -128, -32, -128, -16, -112, -16, -112, 0, -96, 0, -96, 16, 112, 16, 112, 32, 256, 32, 256, 160, -408, 160 )
+uv = Vector2Array(  )
+color = Color( 0, 0, 0, 1 )
+vertex_colors = ColorArray(  )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+
+[node name="Polygon2D 2" type="Polygon2D" parent="props/black_mask"]
+
+polygon = Vector2Array( -400, -80, -128, -80, -128, -192, -400, -192 )
+uv = Vector2Array(  )
+color = Color( 0, 0, 0, 1 )
+vertex_colors = ColorArray(  )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+
+[node name="block" type="StaticBody2D" parent="props" groups=[ "enemy" ]]
+
+editor/display_folded = true
+transform/pos = Vector2( -200, -32 )
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -16, -16 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="props/block"]
+
+transform/pos = Vector2( -16, -16 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="fadeout1" type="Sprite" parent="props"]
+
+editor/display_folded = true
+visibility/blend_mode = 2
+material/material = SubResource( 3 )
+transform/pos = Vector2( -192, -56 )
+transform/scale = Vector2( 1, 0.375 )
+texture = ExtResource( 2 )
+flip_h = true
+
+[node name="Polygon2D" type="Polygon2D" parent="props/fadeout1"]
+
+transform/pos = Vector2( -1, 0 )
+polygon = Vector2Array( -63, 64, -63, -64, -191, -64, -191, 64 )
+uv = Vector2Array(  )
+color = Color( 0, 0, 0, 1 )
+vertex_colors = ColorArray(  )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+
+[node name="fadeout2" type="Sprite" parent="props"]
+
+visibility/blend_mode = 2
+material/material = SubResource( 3 )
+transform/pos = Vector2( -252, -104 )
+transform/scale = Vector2( 1.4375, 1.375 )
+texture = ExtResource( 2 )
+flip_h = true
+
+[node name="gui" parent="." instance=ExtResource( 3 )]
+
+[node name="background" parent="." instance=ExtResource( 4 )]
+
+[node name="camera" parent="." instance=ExtResource( 5 )]
+
+[node name="TileMap" type="TileMap" parent="." groups=[ "map" ]]
+
+mode = 0
+tile_set = ExtResource( 6 )
+cell/size = Vector2( 16, 16 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray( -720914, 18, -720913, 18, -720912, 18, -720911, 18, -720910, 18, -720909, 18, -720908, 18, -720907, 18, -720906, 18, -720905, 19, -655378, 18, -655377, 18, -655376, 18, -655375, 18, -655374, 18, -655373, 18, -655372, 18, -655371, 18, -655370, 18, -655369, 19, -589842, 18, -589841, 18, -589840, 18, -589839, 18, -589838, 18, -589837, 18, -589836, 18, -589835, 18, -589834, 18, -589833, 19, -524306, 18, -524305, 18, -524304, 18, -524303, 18, -524302, 18, -524301, 18, -524300, 18, -524299, 18, -524298, 18, -524297, 19, -458770, 18, -458769, 18, -458768, 18, -458767, 18, -458766, 18, -458765, 18, -458764, 18, -458763, 18, -458762, 18, -458761, 19, -393234, 18, -393233, 18, -393232, 18, -393231, 18, -393230, 18, -393229, 18, -393228, 18, -393227, 18, -393226, 18, -393225, 19, -327698, 21, -327697, 21, -327696, 21, -327695, 21, -327694, 21, -327693, 21, -327692, 21, -327691, 21, -327690, 21, -327689, 22, -327664, 3, -262128, 3, -196592, 3, -65554, 1, -65553, 1, -65552, 1, -65551, 1, -65550, 1, -65549, 1, -65548, 1, -65547, 1, -65546, 1, -65545, 16, -131056, 3, -9, 28, -8, 16, -65520, 3, 65528, 26, 65529, 16, 16, 3, 131064, 28, 131065, 29, 131066, 1, 131067, 1, 131068, 1, 131069, 1, 131070, 1, 131071, 1, 65536, 1, 65537, 1, 65538, 1, 65539, 1, 65540, 1, 65541, 1, 65542, 2, 65552, 3, 131078, 28, 131079, 1, 131080, 1, 131081, 1, 131082, 1, 131083, 1, 131084, 1, 131085, 1, 131086, 1, 131087, 1, 131088, 30 )
+
+

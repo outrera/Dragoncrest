@@ -1,0 +1,355 @@
+[gd_scene load_steps=17 format=1]
+
+[ext_resource path="res://assets/img/cloud2.png" type="Texture" id=1]
+[ext_resource path="res://assets/shaders/scroller_material.tres" type="CanvasItemMaterial" id=2]
+[ext_resource path="res://assets/img/cloud1.png" type="Texture" id=3]
+[ext_resource path="res://assets/misc/squaredance00.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/misc/squaredance03.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/tiles/ui_theme.tres" type="Theme" id=6]
+[ext_resource path="res://assets/shaders/palette_material.tres" type="CanvasItemMaterial" id=7]
+[ext_resource path="res://assets/img/void.png" type="Texture" id=8]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "# main menu script\n\nextends Node\n\nvar main_menu\nvar option_menu\nvar animator\nvar mode = 0\nvar screen_mode = 0\n\nfunc _ready():\n\tmain_menu = get_node(\"menu/main_buttons\")\n\toption_menu = get_node(\"menu/option_buttons\")\n\tanimator = get_node(\"main_player\")\n#\tmain_menu.get_node(\"start\").set_disabled(true)\n#\tmain_menu.get_node(\"option\").set_disabled(true)\n#\tmain_menu.get_node(\"exit\").set_disabled(true)\n\t\n\tset_fixed_process(true)\n\tset_process_unhandled_key_input(true)\n\nfunc _on_start_pressed():\n\tprint(\"clicky\")\n\tif(mode == 1):\n\t\tget_tree().change_scene(\"res://scenes/tester.tscn\")\n\n\nfunc _on_option_pressed():\n\tanimator.play(\"options\")\n\toption_menu.show()\n\toption_menu.get_node(\"screen options\").grab_focus()\n\t\n\tmode = 2\n\n\nfunc _on_exit_pressed():\n\tif(mode == 1):\n\t\tget_tree().quit()\n\n\nfunc _on_screen_options_button_selected( button_idx ):\n\tif(option_menu.get_opacity() > 0.75):\n\t\tscreen_mode = button_idx\n\n\nfunc _on_return_pressed():\n\tif(option_menu.get_opacity() > 0.75):\n\t\tif(screen_mode < 3):\n\t\t\tGame.scale = 1 + screen_mode\n\t\t\tGame.fullscreen = false\n\t\t\tGame.maximized = false\n\t\telif(screen_mode == 3):\n\t\t\tGame.maximized = true\n\t\telif(screen_mode == 4):\n\t\t\tGame.fullscreen = true\n\t\n\tGame.set_screen_mode()\n\tGame.save_config()\n\tanimator.play_backwards(\"options\")\n\tmain_menu.show()\n\tmain_menu.get_node(\"start\").grab_focus()\n\t\n\tmode = 1\n\n\nfunc _unhandled_key_input(key_event):\n\tif(mode == 0):\n\t\tanimator.play(\"newmenu\")\n\t\tmain_menu.show()\n\t\tmain_menu.get_node(\"start\").release_focus()\n\t\t\n\t\tmode += 1\n\n\nfunc _on_main_player_animation_changed( old_name, new_name ):\n\tpass # replace with function body\n\n\nfunc _on_main_player_finished():\n\tif(mode == 1):\n\t\toption_menu.hide()\n\t\tmain_menu.get_node(\"start\").grab_focus()\n\telif(mode == 2):\n\t\tmain_menu.hide()\n\t\toption_menu.get_node(\"screen options\").grab_focus()\n\nfunc _fixed_process(delta):\n\t# Try to make it so that nothing from the menu node can be accessible until player does something\n\tpass"
+
+[sub_resource type="CanvasItemShaderGraph" id=2]
+
+_code = { "fragment":"vec3 nd1sl2=vec3(UV,0);\nuniform color Color=vec4(0,0,0,1);\nvec3 nd2sl0=Color.rgb;\nfloat nd2sl1=Color.a;\nfloat nd5sl0=nd1sl2.x;\nfloat nd5sl1=nd1sl2.y;\nfloat nd5sl2=nd1sl2.z;\nfloat nd6sl0=TIME;\nuniform float scrollspeed=5;\nfloat nd10sl0=scrollspeed;\nfloat nd8sl0=nd6sl0*nd10sl0;\nfloat nd11sl0=nd5sl0+nd8sl0;\nvec3 nd7sl0=vec3(nd11sl0,nd5sl1,nd5sl2);\nuniform texture image_tex;vec4 rt_read_tex3=tex(image_tex,nd7sl0.xy);\nvec3 nd3sl0=rt_read_tex3.rgb;\nfloat nd3sl1=rt_read_tex3.a;\nvec3 nd4sl0=nd2sl0+nd3sl0;\nCOLOR.rgb=nd4sl0;\nCOLOR.a=nd3sl1;\n", "fragment_ofs":0, "light":"", "light_ofs":0, "vertex":"", "vertex_ofs":0 }
+_data = { "shaders":[ [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ], [ 0, 33, Vector2( 1026, 90 ), null, null, [ 0, 4, 0, 1, 3, 1 ], 1, 0, Vector2( -39, 50 ), null, null, [  ], 2, 28, Vector2( 683, 52 ), "Color", Color( 0, 0, 0, 1 ), [  ], 3, 30, Vector2( 687, 163 ), "image_tex", null, [ 0, 7, 0, 2147483647, 0, null ], 4, 8, Vector2( 846, 148 ), 0, null, [ 0, 2, 0, 1, 3, 0, 2147483647, 0, null, 2147483647, 1, null ], 5, 18, Vector2( 96, 110 ), null, null, [ 0, 1, 2, 2147483647, 0, null ], 6, 5, Vector2( -28, 233 ), null, null, [  ], 7, 19, Vector2( 554, 99 ), null, null, [ 0, 11, 0, 1, 5, 1, 2, 5, 2, 2147483647, 0, null, 2147483647, 1, null, 2147483647, 2, null ], 8, 7, Vector2( 155.52, 254.88 ), 2, null, [ 0, 6, 0, 1, 10, 0, 2147483647, 0, 0.0, 2147483647, 1, 0.001 ], 10, 26, Vector2( -43, 296 ), "scrollspeed", 5.0, [  ], 11, 7, Vector2( 343.667, 242 ), 0, null, [ 0, 5, 0, 1, 8, 0, 2147483647, 0, null, 2147483647, 1, null ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ] ] }
+
+[sub_resource type="CanvasItemMaterial" id=3]
+
+shader/shader = SubResource( 2 )
+shader/shading_mode = 0
+shader_param/Color = Color( 0, 0, 0, 1 )
+shader_param/scrollspeed = 0.4
+
+[sub_resource type="DynamicFont" id=4]
+
+font/size = 32
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=5]
+
+font/size = 8
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 5 )
+
+[sub_resource type="Animation" id=6]
+
+length = 1.5
+loop = false
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("text/begin:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ 0.0 ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("text/begin:rect/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 216 ) ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("text/title:rect/pos")
+tracks/2/interp = 2
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 0, 1.22 ), "transitions":FloatArray( 0.574349, 4 ), "update":0, "values":[ Vector2( 0, 32 ), Vector2( 0, 24 ) ] }
+tracks/3/type = "value"
+tracks/3/path = NodePath("clouds/clouddark:transform/pos")
+tracks/3/interp = 2
+tracks/3/imported = false
+tracks/3/keys = { "times":FloatArray( 0, 1.38 ), "transitions":FloatArray( -1.68179, -4 ), "update":0, "values":[ Vector2( 0, 104 ), Vector2( 0, 72 ) ] }
+tracks/4/type = "value"
+tracks/4/path = NodePath("clouds/cloudlight:transform/pos")
+tracks/4/interp = 2
+tracks/4/imported = false
+tracks/4/keys = { "times":FloatArray( 0, 1.49 ), "transitions":FloatArray( 0.659754, 1 ), "update":0, "values":[ Vector2( 0, 152 ), Vector2( 0, 96 ) ] }
+tracks/5/type = "value"
+tracks/5/path = NodePath("menu/main_buttons:visibility/opacity")
+tracks/5/interp = 1
+tracks/5/imported = false
+tracks/5/keys = { "times":FloatArray( 0, 0.81, 1.22 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ 0.0, 0.0, 1.0 ] }
+
+[sub_resource type="Animation" id=7]
+
+length = 0.5
+loop = false
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("menu/main_buttons:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.25 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 1.0, 0.0 ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("menu/option_buttons:visibility/opacity")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 0.25, 0.5 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ 0.0, 0.0, 1.0 ] }
+
+[sub_resource type="Animation" id=8]
+
+length = 2.5
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("text/begin:visibility/opacity")
+tracks/0/interp = 2
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.5, 2, 2.5 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":0, "values":[ 0.0, 1.0, 1.0, 0.0 ] }
+
+[node name="world" type="Node"]
+
+script/script = SubResource( 1 )
+
+[node name="clouds" type="Node" parent="."]
+
+[node name="clouddark" type="Sprite" parent="clouds"]
+
+material/material = SubResource( 3 )
+transform/pos = Vector2( 0, 104 )
+transform/scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+centered = false
+region = true
+region_rect = Rect2( 0, 3, 192, 105 )
+
+[node name="cloudlight" type="Sprite" parent="clouds"]
+
+material/material = ExtResource( 2 )
+transform/pos = Vector2( 0, 152 )
+transform/scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+centered = false
+region = true
+region_rect = Rect2( 0, 3, 192, 105 )
+
+[node name="text" type="Node" parent="."]
+
+[node name="title" type="Label" parent="text"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 32.0
+margin/right = 320.0
+margin/bottom = 84.0
+custom_fonts/font = SubResource( 4 )
+text = "VisioKnight"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="begin" type="Label" parent="text"]
+
+visibility/opacity = 0.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 216.0
+margin/right = 320.0
+margin/bottom = 280.0
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Press Any Button"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="menu" type="Control" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 6 )
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+
+[node name="main_buttons" type="VBoxContainer" parent="menu"]
+
+visibility/opacity = 0.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 3
+margin/left = 112.0
+margin/top = 200.0
+margin/right = 208.0
+margin/bottom = 288.0
+alignment = 0
+
+[node name="start" type="Button" parent="menu/main_buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 96.0
+margin/bottom = 11.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Begin"
+flat = false
+
+[node name="option" type="Button" parent="menu/main_buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 15.0
+margin/right = 96.0
+margin/bottom = 26.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Option"
+flat = false
+
+[node name="exit" type="Button" parent="menu/main_buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 30.0
+margin/right = 96.0
+margin/bottom = 41.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Exit"
+flat = false
+
+[node name="option_buttons" type="VBoxContainer" parent="menu"]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 3
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 200.0
+margin/right = 320.0
+margin/bottom = 288.0
+alignment = 0
+
+[node name="mode" type="Label" parent="menu/option_buttons"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 0
+margin/left = 124.0
+margin/top = 0.0
+margin/right = 195.0
+margin/bottom = 9.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "screen mode"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="screen options" type="HButtonArray" parent="menu/option_buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 13.0
+margin/right = 320.0
+margin/bottom = 24.0
+button/count = 5
+button/min_button_size = -1.0
+button/align = 1
+button/0/text = "1x"
+button/0/icon = null
+button/1/text = "2x"
+button/1/icon = null
+button/2/text = "3x"
+button/2/icon = null
+button/3/text = "max"
+button/3/icon = null
+button/4/text = "full"
+button/4/icon = null
+button/selected = 0
+
+[node name="return" type="Button" parent="menu/option_buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 1
+size_flags/vertical = 2
+margin/left = 114.0
+margin/top = 28.0
+margin/right = 205.0
+margin/bottom = 39.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "save & go back"
+flat = false
+
+[node name="main_player" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 0
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/newmenu = SubResource( 6 )
+anims/options = SubResource( 7 )
+anims/titlefade = SubResource( 8 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [ "titlefade", "newmenu", 1.0, "newmenu", "titlefade", 0.5 ]
+autoplay = "titlefade"
+
+[node name="shader" type="TextureFrame" parent="."]
+
+material/material = ExtResource( 7 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 320.0
+margin/bottom = 288.0
+texture = ExtResource( 8 )
+stretch_mode = 2
+
+[connection signal="pressed" from="menu/main_buttons/start" to="." method="_on_start_pressed"]
+
+[connection signal="pressed" from="menu/main_buttons/option" to="." method="_on_option_pressed"]
+
+[connection signal="pressed" from="menu/main_buttons/exit" to="." method="_on_exit_pressed"]
+
+[connection signal="button_selected" from="menu/option_buttons/screen options" to="." method="_on_screen_options_button_selected"]
+
+[connection signal="pressed" from="menu/option_buttons/return" to="." method="_on_return_pressed"]
+
+[connection signal="animation_changed" from="main_player" to="." method="_on_main_player_animation_changed"]
+
+[connection signal="finished" from="main_player" to="." method="_on_main_player_finished"]
+
+
