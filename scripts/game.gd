@@ -11,7 +11,7 @@ extends Node
 
 var config = ConfigFile.new() # Config file game can change at the start screen and pause screen
 var save = File.new() # Intended for game saves, might just leave it as one slot
-var transition # Reserved for Transition node to manage transition effects.
+var transition = null # Reserved for Transition node to manage transition effects.
 
 # Some default settings for first run
 var scale = 1
@@ -89,6 +89,7 @@ func save_config():
 		print("CONFIG SAVED!!")
 	else:
 		print("YOU FUCKED UP MIKE!! " + str(confcode))
+
 
 ##EXTRA FUNCTIONS
 

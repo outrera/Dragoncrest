@@ -1,19 +1,19 @@
 [gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://scenes/fps.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/misc/04B_03B_.TTF" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/misc/font/micro.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scenes/objects/transition/transition.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/shaders/palette_material.tres" type="CanvasItemMaterial" id=4]
 [ext_resource path="res://assets/img/void.png" type="Texture" id=5]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 
 font/size = 8
 font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 2 )
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=1]
 
 script/source = "extends Label\n\n# member variables here, example:\n# var a=2\n# var b=\"textvar\"\nvar fps\n\nfunc _ready():\n\tset_fixed_process(true)\n\tpass\n\nfunc _fixed_process(delta):\n\tfps = Performance.get_monitor(Performance.TIME_FPS)\n\tset_text(str(fps))\n\n"
 
@@ -26,9 +26,9 @@ scale = Vector2( 1, 1 )
 
 [node name="fps" parent="." instance=ExtResource( 1 )]
 
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 custom_constants/shadow_as_outline = 4
-script/script = SubResource( 2 )
+script/script = SubResource( 1 )
 
 [node name="transition" parent="." instance=ExtResource( 3 )]
 

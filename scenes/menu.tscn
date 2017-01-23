@@ -1,17 +1,16 @@
-[gd_scene load_steps=17 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://assets/img/cloud2.png" type="Texture" id=1]
 [ext_resource path="res://assets/shaders/scroller_material.tres" type="CanvasItemMaterial" id=2]
 [ext_resource path="res://assets/img/cloud1.png" type="Texture" id=3]
-[ext_resource path="res://assets/misc/squaredance00.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://assets/misc/squaredance03.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://assets/tiles/ui_theme.tres" type="Theme" id=6]
-[ext_resource path="res://assets/shaders/palette_material.tres" type="CanvasItemMaterial" id=7]
-[ext_resource path="res://assets/img/void.png" type="Texture" id=8]
+[ext_resource path="res://assets/misc/font/Cave-Story.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/tiles/ui_theme.tres" type="Theme" id=5]
+[ext_resource path="res://assets/shaders/palette_material.tres" type="CanvasItemMaterial" id=6]
+[ext_resource path="res://assets/img/void.png" type="Texture" id=7]
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "# main menu script\n\nextends Node\n\nvar main_menu\nvar option_menu\nvar animator\nvar mode = 0\nvar screen_mode = 0\n\nfunc _ready():\n\tmain_menu = get_node(\"menu/main_buttons\")\n\toption_menu = get_node(\"menu/option_buttons\")\n\tanimator = get_node(\"main_player\")\n#\tmain_menu.get_node(\"start\").set_disabled(true)\n#\tmain_menu.get_node(\"option\").set_disabled(true)\n#\tmain_menu.get_node(\"exit\").set_disabled(true)\n\t\n\tset_fixed_process(true)\n\tset_process_unhandled_key_input(true)\n\nfunc _on_start_pressed():\n\tprint(\"clicky\")\n\tif(mode == 1):\n\t\tget_tree().change_scene(\"res://scenes/tester.tscn\")\n\n\nfunc _on_option_pressed():\n\tanimator.play(\"options\")\n\toption_menu.show()\n\toption_menu.get_node(\"screen options\").grab_focus()\n\t\n\tmode = 2\n\n\nfunc _on_exit_pressed():\n\tif(mode == 1):\n\t\tget_tree().quit()\n\n\nfunc _on_screen_options_button_selected( button_idx ):\n\tif(option_menu.get_opacity() > 0.75):\n\t\tscreen_mode = button_idx\n\n\nfunc _on_return_pressed():\n\tif(option_menu.get_opacity() > 0.75):\n\t\tif(screen_mode < 3):\n\t\t\tGame.scale = 1 + screen_mode\n\t\t\tGame.fullscreen = false\n\t\t\tGame.maximized = false\n\t\telif(screen_mode == 3):\n\t\t\tGame.maximized = true\n\t\telif(screen_mode == 4):\n\t\t\tGame.fullscreen = true\n\t\n\tGame.set_screen_mode()\n\tGame.save_config()\n\tanimator.play_backwards(\"options\")\n\tmain_menu.show()\n\tmain_menu.get_node(\"start\").grab_focus()\n\t\n\tmode = 1\n\n\nfunc _unhandled_key_input(key_event):\n\tif(mode == 0):\n\t\tanimator.play(\"newmenu\")\n\t\tmain_menu.show()\n\t\tmain_menu.get_node(\"start\").release_focus()\n\t\t\n\t\tmode += 1\n\n\nfunc _on_main_player_animation_changed( old_name, new_name ):\n\tpass # replace with function body\n\n\nfunc _on_main_player_finished():\n\tif(mode == 1):\n\t\toption_menu.hide()\n\t\tmain_menu.get_node(\"start\").grab_focus()\n\telif(mode == 2):\n\t\tmain_menu.hide()\n\t\toption_menu.get_node(\"screen options\").grab_focus()\n\nfunc _fixed_process(delta):\n\t# Try to make it so that nothing from the menu node can be accessible until player does something\n\tpass"
+script/source = "# main menu script\n\nextends Node\n\nvar main_menu\nvar option_menu\nvar animator\nvar mode = 0\nvar screen_mode = 0\n\nfunc _ready():\n\tmain_menu = get_node(\"menu/main_buttons\")\n\toption_menu = get_node(\"menu/option_buttons\")\n\tanimator = get_node(\"main_player\")\n#\tmain_menu.get_node(\"start\").set_disabled(true)\n#\tmain_menu.get_node(\"option\").set_disabled(true)\n#\tmain_menu.get_node(\"exit\").set_disabled(true)\n\t\n\tset_fixed_process(true)\n\tset_process_unhandled_key_input(true)\n\nfunc _on_start_pressed():\n\tprint(\"clicky\")\n\tif(mode == 1):\n\t\tLoader.load_scene(\"res://scenes/tester.tscn\")\n\n\nfunc _on_option_pressed():\n\tanimator.play(\"options\")\n\toption_menu.show()\n\toption_menu.get_node(\"screen options\").grab_focus()\n\t\n\tmode = 2\n\n\nfunc _on_exit_pressed():\n\tif(mode == 1):\n\t\tget_tree().quit()\n\n\nfunc _on_screen_options_button_selected( button_idx ):\n\tif(option_menu.get_opacity() > 0.75):\n\t\tscreen_mode = button_idx\n\n\nfunc _on_return_pressed():\n\tif(option_menu.get_opacity() > 0.75):\n\t\tif(screen_mode < 3):\n\t\t\tGame.scale = 1 + screen_mode\n\t\t\tGame.fullscreen = false\n\t\t\tGame.maximized = false\n\t\telif(screen_mode == 3):\n\t\t\tGame.maximized = true\n\t\telif(screen_mode == 4):\n\t\t\tGame.fullscreen = true\n\t\n\tGame.set_screen_mode()\n\tGame.save_config()\n\tanimator.play_backwards(\"options\")\n\tmain_menu.show()\n\tmain_menu.get_node(\"start\").grab_focus()\n\t\n\tmode = 1\n\n\nfunc _unhandled_key_input(key_event):\n\tif(mode == 0):\n\t\tanimator.play(\"newmenu\")\n\t\tmain_menu.show()\n\t\tmain_menu.get_node(\"start\").release_focus()\n\t\t\n\t\tmode += 1\n\n\nfunc _on_main_player_animation_changed( old_name, new_name ):\n\tpass # replace with function body\n\n\nfunc _on_main_player_finished():\n\tif(mode == 1):\n\t\toption_menu.hide()\n\t\tmain_menu.get_node(\"start\").grab_focus()\n\telif(mode == 2):\n\t\tmain_menu.hide()\n\t\toption_menu.get_node(\"screen options\").grab_focus()\n\nfunc _fixed_process(delta):\n\t# Try to make it so that nothing from the menu node can be accessible until player does something\n\tpass"
 
 [sub_resource type="CanvasItemShaderGraph" id=2]
 
@@ -27,17 +26,17 @@ shader_param/scrollspeed = 0.4
 
 [sub_resource type="DynamicFont" id=4]
 
-font/size = 32
+font/size = 64
 font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=5]
 
-font/size = 8
+font/size = 16
 font/use_mipmaps = false
-font/use_filter = false
-font/font = ExtResource( 5 )
+font/use_filter = true
+font/font = ExtResource( 4 )
 
 [sub_resource type="Animation" id=6]
 
@@ -68,7 +67,7 @@ tracks/4/type = "value"
 tracks/4/path = NodePath("clouds/cloudlight:transform/pos")
 tracks/4/interp = 2
 tracks/4/imported = false
-tracks/4/keys = { "times":FloatArray( 0, 1.49 ), "transitions":FloatArray( 0.659754, 1 ), "update":0, "values":[ Vector2( 0, 152 ), Vector2( 0, 96 ) ] }
+tracks/4/keys = { "times":FloatArray( 0, 1.49 ), "transitions":FloatArray( -1.7411, 1 ), "update":0, "values":[ Vector2( 0, 152 ), Vector2( 0, 96 ) ] }
 tracks/5/type = "value"
 tracks/5/path = NodePath("menu/main_buttons:visibility/opacity")
 tracks/5/interp = 1
@@ -141,7 +140,7 @@ margin/top = 32.0
 margin/right = 320.0
 margin/bottom = 84.0
 custom_fonts/font = SubResource( 4 )
-text = "VisioKnight"
+text = "Dragoncrest"
 align = 1
 valign = 1
 percent_visible = 1.0
@@ -161,7 +160,7 @@ margin/right = 320.0
 margin/bottom = 280.0
 custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Press Any Button"
+text = "PRESS ANY BUTTON"
 align = 1
 valign = 1
 percent_visible = 1.0
@@ -174,7 +173,7 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-theme/theme = ExtResource( 6 )
+theme/theme = ExtResource( 5 )
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 0.0
@@ -202,7 +201,7 @@ size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 96.0
-margin/bottom = 11.0
+margin/bottom = 12.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -216,9 +215,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 15.0
+margin/top = 16.0
 margin/right = 96.0
-margin/bottom = 26.0
+margin/bottom = 28.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -232,9 +231,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 30.0
+margin/top = 32.0
 margin/right = 96.0
-margin/bottom = 41.0
+margin/bottom = 44.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -280,18 +279,24 @@ margin/left = 0.0
 margin/top = 13.0
 margin/right = 320.0
 margin/bottom = 24.0
+flat = false
 button/count = 5
 button/min_button_size = -1.0
 button/align = 1
 button/0/text = "1x"
+button/0/tooltip = ""
 button/0/icon = null
 button/1/text = "2x"
+button/1/tooltip = ""
 button/1/icon = null
 button/2/text = "3x"
+button/2/tooltip = ""
 button/2/icon = null
 button/3/text = "max"
+button/3/tooltip = ""
 button/3/icon = null
 button/4/text = "full"
+button/4/tooltip = ""
 button/4/icon = null
 button/selected = 0
 
@@ -321,12 +326,13 @@ anims/options = SubResource( 7 )
 anims/titlefade = SubResource( 8 )
 playback/active = true
 playback/speed = 1.0
-blend_times = [ "titlefade", "newmenu", 1.0, "newmenu", "titlefade", 0.5 ]
+blend_times = [ "newmenu", "titlefade", 0.5, "titlefade", "newmenu", 1.0 ]
 autoplay = "titlefade"
 
 [node name="shader" type="TextureFrame" parent="."]
 
-material/material = ExtResource( 7 )
+visibility/visible = false
+material/material = ExtResource( 6 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -335,7 +341,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 320.0
 margin/bottom = 288.0
-texture = ExtResource( 8 )
+texture = ExtResource( 7 )
 stretch_mode = 2
 
 [connection signal="pressed" from="menu/main_buttons/start" to="." method="_on_start_pressed"]

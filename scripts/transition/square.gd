@@ -1,9 +1,10 @@
 extends Node2D
 var size = 8 setget set_size, get_size
 var color = Color(1,1,1) setget set_color, get_color
+var max_size = 0
 
 func set_color(value):
-	if(typeof(TYPE_COLOR)):
+	if typeof(value) == TYPE_COLOR:
 		color = value
 		update()
 	else:
@@ -13,8 +14,10 @@ func get_color():
 	return color
 
 func set_size(value):
-	if(value < 0):
+	if value < 0:
 		size = 0
+	elif value > max_size:
+		size = max_size
 	else:
 		size = value
 	update()
