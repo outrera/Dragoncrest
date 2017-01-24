@@ -20,6 +20,7 @@ var maximized = false
 
 # GAME CONSTANTS
 const WINDOW_DEFAULT = Vector2(320, 288)
+const InputChecker = preload("res://scripts/inputchecker.gd") # Class thing for checking input stuff. Useful!
 
 # GAME FUNCTIONS
 func _init():

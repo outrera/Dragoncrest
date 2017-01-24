@@ -1,0 +1,263 @@
+[gd_scene load_steps=9 format=1]
+
+[ext_resource path="res://assets/misc/font/Cave-Story.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/img/intro/godot_icon.png" type="Texture" id=2]
+[ext_resource path="res://assets/img/intro/planet.png" type="Texture" id=3]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node\n\nonready var anim = get_node(\"AnimationPlayer\")\n\nfunc _ready():\n\tset_process_unhandled_key_input(true)\n\nfunc _unhandled_key_input(key_event):\n\tLoader.load_scene(\"res://scenes/menu.tscn\", true)\n\nfunc _on_AnimationPlayer_finished():\n\tif anim.get_current_animation() == \"godot_splash\":\n\t\tanim.play(\"intro_scene\")\n\telif anim.get_current_animation() == \"intro_scene\":\n\t\tLoader.load_scene(\"res://scenes/menu.tscn\", true)\n"
+
+[sub_resource type="DynamicFont" id=2]
+
+font/size = 32
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+
+font/size = 32
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 1 )
+
+[sub_resource type="Animation" id=4]
+
+length = 4.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("godot_splash/godot_icon:transform/pos")
+tracks/0/interp = 2
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0.5, 2.5 ), "transitions":FloatArray( 0.5, 1 ), "update":0, "values":[ Vector2( 384, 144 ), Vector2( 160, 144 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("godot_splash/godot_icon:transform/rot")
+tracks/1/interp = 2
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0.5, 2.5 ), "transitions":FloatArray( 0.466517, 1 ), "update":0, "values":[ 0.0, 360.0 ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("godot_splash/godot_icon:visibility/opacity")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 0.5, 1.3 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/3/type = "value"
+tracks/3/path = NodePath("godot_splash/Polygon2D:transform/scale")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = { "times":FloatArray( 0, 2, 2.6 ), "transitions":FloatArray( 1, -2.73208, 1 ), "update":0, "values":[ Vector2( 0.4, 0.4 ), Vector2( 0.4, 0.4 ), Vector2( 5, 5 ) ] }
+tracks/4/type = "value"
+tracks/4/path = NodePath("godot_splash:visibility/opacity")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = { "times":FloatArray( 0, 3.5, 4 ), "transitions":FloatArray( 1, 2, 1 ), "update":0, "values":[ 1.0, 1.0, 0.0 ] }
+tracks/5/type = "value"
+tracks/5/path = NodePath("godot_splash/Polygon2D2:transform/scale")
+tracks/5/interp = 1
+tracks/5/imported = false
+tracks/5/keys = { "times":FloatArray( 0, 2.3, 2.9 ), "transitions":FloatArray( 1, -1.8025, 1 ), "update":0, "values":[ Vector2( 0.4, 0.4 ), Vector2( 0.4, 0.4 ), Vector2( 5, 5 ) ] }
+
+[sub_resource type="Animation" id=5]
+
+resource/name = "intro_scene"
+length = 20.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("intro_scene/Label:visibility/self_opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 2, 4, 6 ), "transitions":FloatArray( 2.07053, 1, 2.14355, 1 ), "update":0, "values":[ 0.0, 1.0, 1.0, 0.0 ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("intro_scene/Label2:visibility/self_opacity")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 6, 8 ), "transitions":FloatArray( 1.51572, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("intro_scene/earth:transform/pos")
+tracks/2/interp = 2
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 0.5, 10 ), "transitions":FloatArray( -1.6245, 1 ), "update":0, "values":[ Vector2( 158.4, 390.4 ), Vector2( 158.4, 142.4 ) ] }
+tracks/3/type = "value"
+tracks/3/path = NodePath("intro_scene/earth:transform/scale")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = { "times":FloatArray( 0, 10, 15 ), "transitions":FloatArray( 1, 4.75683, 1 ), "update":0, "values":[ Vector2( 0.1, 0.1 ), Vector2( 0.1, 0.1 ), Vector2( 0.5, 0.5 ) ] }
+tracks/4/type = "value"
+tracks/4/path = NodePath("intro_scene/Polygon2D:color")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = { "times":FloatArray( 0, 12.5, 15 ), "transitions":FloatArray( 1, 4, 1 ), "update":0, "values":[ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ] }
+
+[node name="world" type="Node"]
+
+script/script = SubResource( 1 )
+
+[node name="godot_splash" type="Node2D" parent="."]
+
+editor/display_folded = true
+
+[node name="title1" type="Label" parent="godot_splash"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 80.0
+margin/right = 320.0
+margin/bottom = 100.0
+custom_fonts/font = SubResource( 2 )
+text = "Powered by"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="title2" type="Label" parent="godot_splash"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 192.0
+margin/right = 320.0
+margin/bottom = 212.0
+custom_fonts/font = SubResource( 2 )
+text = "GODOT"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Polygon2D2" type="Polygon2D" parent="godot_splash"]
+
+visibility/light_mask = 3
+transform/pos = Vector2( 162.88, 146.88 )
+transform/scale = Vector2( 0.4, 0.4 )
+z/z = -3
+polygon = Vector2Array( 49.7592, 4.90086, 47.847, 14.5142, 44.0961, 23.5698, 38.6505, 31.7197, 31.7197, 38.6505, 23.5698, 44.0961, 14.5142, 47.847, 4.90086, 49.7592, -4.90086, 49.7592, -14.5142, 47.847, -23.5698, 44.0961, -31.7197, 38.6505, -38.6505, 31.7197, -44.0961, 23.5698, -47.847, 14.5142, -49.7592, 4.90086, -49.7592, -4.90086, -47.847, -14.5142, -44.0961, -23.5698, -38.6505, -31.7197, -31.7197, -38.6505, -23.5698, -44.0961, -14.5142, -47.847, -4.90086, -49.7592, 4.90086, -49.7592, 14.5142, -47.847, 23.5698, -44.0961, 31.7197, -38.6505, 38.6505, -31.7197, 44.0961, -23.5698, 47.847, -14.5142, 49.7592, -4.90086 )
+uv = Vector2Array(  )
+color = Color( 1, 1, 1, 1 )
+vertex_colors = ColorArray(  )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 0.5, 0.5 )
+texture/rotation = 0.0
+invert/enable = true
+invert/border = 500.0
+__meta__ = { "simple_shape":{ "count":3, "height":50, "point1":Vector2( 50, 20 ), "point2":Vector2( 70, 0 ), "shape":2, "width":50 } }
+
+[node name="Polygon2D" type="Polygon2D" parent="godot_splash"]
+
+transform/pos = Vector2( 162.88, 146.88 )
+transform/scale = Vector2( 0.4, 0.4 )
+polygon = Vector2Array( 49.7592, 4.90086, 47.847, 14.5142, 44.0961, 23.5698, 38.6505, 31.7197, 31.7197, 38.6505, 23.5698, 44.0961, 14.5142, 47.847, 4.90086, 49.7592, -4.90086, 49.7592, -14.5142, 47.847, -23.5698, 44.0961, -31.7197, 38.6505, -38.6505, 31.7197, -44.0961, 23.5698, -47.847, 14.5142, -49.7592, 4.90086, -49.7592, -4.90086, -47.847, -14.5142, -44.0961, -23.5698, -38.6505, -31.7197, -31.7197, -38.6505, -23.5698, -44.0961, -14.5142, -47.847, -4.90086, -49.7592, 4.90086, -49.7592, 14.5142, -47.847, 23.5698, -44.0961, 31.7197, -38.6505, 38.6505, -31.7197, 44.0961, -23.5698, 47.847, -14.5142, 49.7592, -4.90086 )
+uv = Vector2Array(  )
+color = Color( 0, 0, 0, 1 )
+vertex_colors = ColorArray(  )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = true
+invert/border = 500.0
+__meta__ = { "simple_shape":{ "count":3, "height":50, "point1":Vector2( 50, 20 ), "point2":Vector2( 70, 0 ), "shape":2, "width":50 } }
+
+[node name="godot_icon" type="Sprite" parent="godot_splash"]
+
+visibility/opacity = 0.0
+visibility/light_mask = 2
+transform/pos = Vector2( 384, 144 )
+texture = ExtResource( 2 )
+
+[node name="intro_scene" type="Node2D" parent="."]
+
+[node name="earth" type="Sprite" parent="intro_scene"]
+
+transform/pos = Vector2( 158.4, 390.4 )
+transform/scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 3 )
+
+[node name="Polygon2D" type="Polygon2D" parent="intro_scene"]
+
+visibility/blend_mode = 1
+polygon = Vector2Array( 0, 0, 320, 0, 320, 288, 0, 288 )
+uv = Vector2Array(  )
+color = Color( 0, 0, 0, 1 )
+vertex_colors = ColorArray(  )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+
+[node name="Label" type="Label" parent="intro_scene"]
+
+visibility/self_opacity = 0.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 320.0
+margin/bottom = 288.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+text = "A game by\nArcOfDream"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label2" type="Label" parent="intro_scene"]
+
+visibility/self_opacity = 0.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 320.0
+margin/bottom = 288.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+text = "[Intro Content Goes Here]"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/godot_splash = SubResource( 4 )
+anims/intro_scene = SubResource( 5 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "godot_splash"
+
+[connection signal="finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_finished"]
+
+

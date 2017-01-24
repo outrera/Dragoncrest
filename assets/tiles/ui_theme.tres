@@ -47,7 +47,6 @@ expand_margin/left = 0.0
 expand_margin/right = 0.0
 expand_margin/top = 0.0
 expand_margin/bottom = 0.0
-modulate/color = Color( 1, 1, 1, 1 )
 draw_center = false
 
 [sub_resource type="StyleBoxTexture" id=4]
@@ -65,7 +64,6 @@ expand_margin/left = 0.0
 expand_margin/right = 0.0
 expand_margin/top = 0.0
 expand_margin/bottom = 0.0
-modulate/color = Color( 1, 1, 1, 1 )
 draw_center = true
 
 [sub_resource type="StyleBoxEmpty" id=5]

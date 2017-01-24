@@ -4,7 +4,7 @@ extends KinematicBody2D
 
 
 # MEMBER CONSTANTS
-const InputChecker = preload("res://scripts/inputchecker.gd")
+#const InputChecker = preload("res://scripts/inputchecker.gd")
 const GRAVITY = 550.0 # Pixels/second
 
 # Angle in degrees towards either side that the player can consider "floor"
@@ -21,9 +21,9 @@ const SLIDE_STOP_MIN_TRAVEL  = 1.0 # One pixel
 
 
 # MEMBER VARIABLES
-var walk_left   = InputChecker.new("move_left")
-var walk_right  = InputChecker.new("move_right")
-var jump        = InputChecker.new("jump")
+var walk_left   = Game.InputChecker.new("move_left")
+var walk_right  = Game.InputChecker.new("move_right")
+var jump        = Game.InputChecker.new("jump")
 var velocity    = Vector2()
 var on_air_time = 0
 var underwater  = false
