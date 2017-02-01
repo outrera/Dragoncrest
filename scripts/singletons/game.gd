@@ -46,8 +46,6 @@ func _init():
 			print("YOU FUCKED UP MIKE!! " + str(confcode))
 	
 	set_screen_mode()
-	
-#	OS.alert(OS.get_data_dir() + " And here's that user dir you asked for" , "Notice")
 
 func _ready():
 	pass

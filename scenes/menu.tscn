@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/img/cloud2.png" type="Texture" id=1]
 [ext_resource path="res://assets/shaders/scroller_material.tres" type="CanvasItemMaterial" id=2]
 [ext_resource path="res://assets/img/cloud1.png" type="Texture" id=3]
-[ext_resource path="res://assets/misc/font/Cave-Story.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/misc/font/cave_story.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/tiles/ui_theme.tres" type="Theme" id=5]
 [ext_resource path="res://assets/shaders/palette_material.tres" type="CanvasItemMaterial" id=6]
 [ext_resource path="res://assets/img/void.png" type="Texture" id=7]
@@ -138,7 +138,7 @@ size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 32.0
 margin/right = 320.0
-margin/bottom = 84.0
+margin/bottom = 96.0
 custom_fonts/font = SubResource( 4 )
 text = "Dragoncrest"
 align = 1
@@ -205,7 +205,7 @@ margin/bottom = 12.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "Begin"
+text = "BEGIN"
 flat = false
 
 [node name="option" type="Button" parent="menu/main_buttons"]
@@ -221,7 +221,7 @@ margin/bottom = 28.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "Option"
+text = "OPTION"
 flat = false
 
 [node name="exit" type="Button" parent="menu/main_buttons"]
@@ -237,7 +237,7 @@ margin/bottom = 44.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "Exit"
+text = "EXIT"
 flat = false
 
 [node name="option_buttons" type="VBoxContainer" parent="menu"]
@@ -313,7 +313,7 @@ margin/bottom = 39.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "save & go back"
+text = "SAVE & GO BACK"
 flat = false
 
 [node name="main_player" type="AnimationPlayer" parent="."]

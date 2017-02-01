@@ -10,7 +10,7 @@ var camera
 var player
 var current_scene = null
 var quit_status = 0
-
+var pxplay = PxPlay.new()
 
 func _ready():
 	Loader.connect("DONE",self,"on_loaded")
