@@ -1,11 +1,6 @@
 # Dragoncrest
-A slightly Game Boy styled game about a Knight's unsuspected journey into foreign lands.
+An action-y type of game with a style largely inspired after the original GameBoy, this game will tell the story of a knight whose rite of passage turns into a journey across several kingdoms.
 
-Currently heavily a **WIP** project, hopefully will have more to show in the near future.
+**Screenshots** : You can find a gallery of screenshots I've made over the time [here.](http://imgur.com/a/y1ZbT)
 
-## Screenshots ##
-![Scene screenshot](http://i.imgur.com/YpKpPxa.png)
-![Menu footage](http://i.imgur.com/xVV0mZ6.gif)
-
- - [A test using a distortion shader](http://i.imgur.com/sRkREhr.gifv)
- - [Normalmap test](http://i.imgur.com/2BBEj7O.gifv)
+![Title Screen](http://i.imgur.com/K2dPx9C.png)
