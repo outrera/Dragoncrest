@@ -2,10 +2,10 @@
 
 [ext_resource path="res://scenes/objects/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/img/gradient_fade_full.png" type="Texture" id=2]
-[ext_resource path="res://scenes/objects/gui.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/objects/background/tester2_bg.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/objects/camera.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/tiles/brick_tileset.tres" type="TileSet" id=6]
+[ext_resource path="res://scenes/objects/background/tester2_bg.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/objects/camera.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/tiles/brick_tileset.tres" type="TileSet" id=5]
+[ext_resource path="res://scenes/objects/gui.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -120,16 +120,14 @@ transform/scale = Vector2( 1.4375, 1.375 )
 texture = ExtResource( 2 )
 flip_h = true
 
-[node name="gui" parent="." instance=ExtResource( 3 )]
+[node name="background" parent="." instance=ExtResource( 3 )]
 
-[node name="background" parent="." instance=ExtResource( 4 )]
-
-[node name="camera" parent="." instance=ExtResource( 5 )]
+[node name="camera" parent="." instance=ExtResource( 4 )]
 
 [node name="TileMap" type="TileMap" parent="." groups=[ "map" ]]
 
 mode = 0
-tile_set = ExtResource( 6 )
+tile_set = ExtResource( 5 )
 cell/size = Vector2( 16, 16 )
 cell/quadrant_size = 16
 cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -143,5 +141,7 @@ collision/layers = 1
 collision/mask = 1
 occluder/light_mask = 1
 tile_data = IntArray( -720914, 18, -720913, 18, -720912, 18, -720911, 18, -720910, 18, -720909, 18, -720908, 18, -720907, 18, -720906, 18, -720905, 19, -655378, 18, -655377, 18, -655376, 18, -655375, 18, -655374, 18, -655373, 18, -655372, 18, -655371, 18, -655370, 18, -655369, 19, -589842, 18, -589841, 18, -589840, 18, -589839, 18, -589838, 18, -589837, 18, -589836, 18, -589835, 18, -589834, 18, -589833, 19, -524306, 18, -524305, 18, -524304, 18, -524303, 18, -524302, 18, -524301, 18, -524300, 18, -524299, 18, -524298, 18, -524297, 19, -458770, 18, -458769, 18, -458768, 18, -458767, 18, -458766, 18, -458765, 18, -458764, 18, -458763, 18, -458762, 18, -458761, 19, -393234, 18, -393233, 18, -393232, 18, -393231, 18, -393230, 18, -393229, 18, -393228, 18, -393227, 18, -393226, 18, -393225, 19, -327698, 21, -327697, 21, -327696, 21, -327695, 21, -327694, 21, -327693, 21, -327692, 21, -327691, 21, -327690, 21, -327689, 22, -327664, 3, -262128, 3, -196592, 3, -65554, 1, -65553, 1, -65552, 1, -65551, 1, -65550, 1, -65549, 1, -65548, 1, -65547, 1, -65546, 1, -65545, 16, -131056, 3, -9, 28, -8, 16, -65520, 3, 65528, 26, 65529, 16, 16, 3, 131064, 28, 131065, 29, 131066, 1, 131067, 1, 131068, 1, 131069, 1, 131070, 1, 131071, 1, 65536, 1, 65537, 1, 65538, 1, 65539, 1, 65540, 1, 65541, 1, 65542, 2, 65552, 3, 131078, 28, 131079, 1, 131080, 1, 131081, 1, 131082, 1, 131083, 1, 131084, 1, 131085, 1, 131086, 1, 131087, 1, 131088, 30 )
+
+[node name="gui" parent="." instance=ExtResource( 6 )]
 
 

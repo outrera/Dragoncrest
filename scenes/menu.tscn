@@ -279,7 +279,6 @@ margin/left = 0.0
 margin/top = 13.0
 margin/right = 320.0
 margin/bottom = 24.0
-flat = false
 button/count = 5
 button/min_button_size = -1.0
 button/align = 1
@@ -326,7 +325,7 @@ anims/options = SubResource( 7 )
 anims/titlefade = SubResource( 8 )
 playback/active = true
 playback/speed = 1.0
-blend_times = [ "newmenu", "titlefade", 0.5, "titlefade", "newmenu", 1.0 ]
+blend_times = [ "titlefade", "newmenu", 1.0, "newmenu", "titlefade", 0.5 ]
 autoplay = "titlefade"
 
 [node name="shader" type="TextureFrame" parent="."]
