@@ -1,4 +1,4 @@
-# VisioKnight
+# Dragoncrest
 A slightly Game Boy styled game about a Knight's unsuspected journey into foreign lands.
 
 Currently heavily a **WIP** project, hopefully will have more to show in the near future.
